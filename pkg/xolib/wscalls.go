@@ -3,7 +3,6 @@ package xolib
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -22,8 +21,6 @@ func rawCall(ws *websocket.Conn, rawReq *MessageRequest) (*MessageResult, error)
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println(string(raw))
 
 	var data *MessageResponse
 	timeouterr := &MessageResponse{

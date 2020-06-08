@@ -2,27 +2,21 @@ package xoclient
 
 import (
 	"errors"
-
-	"github.com/arturoguerra/go-xolib/pkg/xolib"
 )
 
 // GetVMByName
 func (c *client) GetVMByName(name string) (*VM, error) {
-	filters := map[string]string{
-		"type":       "VM",
-		"name_label": name,
-	}
-
-	request := &xolib.MessageRequest{
-		Method: "xo.getAllObjects",
-	}
-
-	resp, err := c.Call(request)
+	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
 	}
 
-	// resp should be map[string]interface{} so we will treat it a such
+	// resp should be map[string]interface{} so we will treat it as such
+
+	filters := map[string]string{
+		"type":       "VM",
+		"name_label": name,
+	}
 
 	vms := make([]*VM, 0)
 
@@ -42,21 +36,17 @@ func (c *client) GetVMByName(name string) (*VM, error) {
 
 // GetVMByUUID
 func (c *client) GetVMByUUID(ref VMRef) (*VM, error) {
-	filters := map[string]string{
-		"type": "VM",
-		"uuid": string(ref),
-	}
-
-	request := &xolib.MessageRequest{
-		Method: "xo.getAllObjects",
-	}
-
-	resp, err := c.Call(request)
+	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
 	}
 
-	// resp should be map[string]interface{} so we will treat it a such
+	// resp should be map[string]interface{} so we will treat it as such
+
+	filters := map[string]string{
+		"type": "VM",
+		"uuid": string(ref),
+	}
 
 	vms := make([]*VM, 0)
 

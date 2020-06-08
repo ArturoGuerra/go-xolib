@@ -1,6 +1,9 @@
 package xoclient
 
-import "github.com/mitchellh/mapstructure"
+import (
+	"github.com/arturoguerra/go-xolib/pkg/xolib"
+	"github.com/mitchellh/mapstructure"
+)
 
 // Filter : filters
 func (c *client) Filter(resp interface{}, filters map[string]string, object interface{}) bool {
@@ -17,4 +20,15 @@ func (c *client) Filter(resp interface{}, filters map[string]string, object inte
 	}
 
 	return false
+}
+
+// getAllObjects
+func (c *client) getAllObjects() (*xolib.MessageResult, error) {
+	request := &xolib.MessageRequest{
+		Method: "xo.getAllObjects",
+	}
+
+	resp, err := c.Call(request)
+
+	return resp, err
 }

@@ -9,6 +9,8 @@ type (
 	VMRef string
 	// SRRef is a string reference to an SR
 	SRRef string
+	// HostRef is a string reference to an XCP-ng host
+	HostRef string
 
 	// SR is a Storage Repository used to store VDIs
 	SR struct {
@@ -18,8 +20,7 @@ type (
 		PoolID    string   `json:"$poolId" mapstructure:"$poolId"`
 		UUID      string   `json:"uuid" mapstructure:"uuid"`
 		SRType    string   `json:"SR_type"`
-		VDIs      []string `json:"VDIs"`
-		PBDs      []string `json:"$PBDs"`
+		VDIs      []VDIRef `json:"VDIs"`
 		NameLabel string   `json:"name_label"`
 		Size      int64    `json:"size"`
 		Usage     int64    `json:"usage"`
@@ -42,12 +43,12 @@ type (
 	// VBD is a Virtual Device Block that is attached to a VM
 	VBD struct {
 		Type     string `json:"type" mapstructure:"type"`
-		ID       string `json:"id" mapstructure:"id"`
+		ID       VBDRef `json:"id" mapstructure:"id"`
 		Pool     string `json:"$pool" mapstructure:"$pool"`
 		PoolID   string `json:"$poolId" mapstructure:"$poolId"`
-		UUID     string `json:"uuid" mapstructure:"uuid"`
-		VDI      string `json:"VDI" mapstructure:"VDI"`
-		VM       string `json:"VM" mapstructure:"VM"`
+		UUID     VBDRef `json:"uuid" mapstructure:"uuid"`
+		VDI      VDIRef `json:"VDI" mapstructure:"VDI"`
+		VM       VMRef  `json:"VM" mapstructure:"VM"`
 		Attached bool   `json:"attached" mapstructure:"attached"`
 		Device   string `json:"device" mapstructure:"device"`
 	}
@@ -55,21 +56,21 @@ type (
 	// VM is a VM Ref
 	VM struct {
 		Type      string   `json:"type" mapstructure:"type"`
-		ID        string   `json:"id" mapstructure:"id"`
+		ID        VMRef    `json:"id" mapstructure:"id"`
 		Pool      string   `json:"$pool" mapstructure:"$pool"`
 		PoolID    string   `json:"$poolId" mapstructure:"$poolId"`
-		UUID      string   `json:"uuid" mapstructure:"uuid"`
-		VBDs      []string `json:"$VBDs" mapstructure:"$VBDs"`
+		UUID      VMRef    `json:"uuid" mapstructure:"uuid"`
+		VBDs      []VBDRef `json:"$VBDs" mapstructure:"$VBDs"`
 		NameLabel string   `json:"name_label" mapstructure:"name_label"`
 	}
 
 	// Host is an XCP-ng host or server connected to Xen Orchestra
 	Host struct {
 		Type      string   `mapstructure:"type"`
-		ID        string   `mapstructure:"id"`
+		ID        HostRef  `mapstructure:"id"`
 		Pool      string   `mapstructure:"$pool"`
 		PoolID    string   `mapstructure:"$poolId"`
-		UUID      string   `mapstructure:"uuid"`
+		UUID      HostRef  `mapstructure:"uuid"`
 		Version   string   `mapstructure:"version"`
 		NameLabel string   `mapstructure:"name_label"`
 		Tags      []string `mapstructure:"tags"`

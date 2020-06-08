@@ -18,25 +18,22 @@ type (
 
 	// VDIMethods are all methods that create/modify/get/delete a VDI from an SR
 	VDIMethods interface {
-		// CreateVDI : Name string, Size int64 (bytes), sr string (SR ID)
-		CreateVDI(string, int64, SRRef) (*VDI, error)
-		// DeleteVDI : VDI ID IDRef
+		CreateVDI(string, int64, SRRef) (*VDIRef, error)
 		DeleteVDI(VDIRef) error
-		//GetVDIByName(string) ([]*VDI, error)
+		GetVDIByName(string) (*VDI, error)
 		GetVDIByUUID(VDIRef) (*VDI, error)
 	}
 
 	// VBDMethods are all methods that create/modify/get/delete a VBD from an VM
 	VBDMethods interface {
-		// Attach : Attaches a VDI to a VM by creating a VBD
-		Attach(VDIRef, VMRef) (VBDRef, error)
-		// Disconnect : Disconnects a VBD from a VM
-		Disconnect(VBDRef) error
-		// Delete : Deletes a VBD
-		Delete(VBDRef) error
-
-		GetVBDByName(string) ([]*VBD, error)
+		AttachVBD(VDIRef, VMRef) error
+		ConnectVBD(VBDRef) error
+		DisconnectVBD(VBDRef) error
+		DeleteVBD(VBDRef) error
+		GetVBDByName(string) (*VBD, error)
 		GetVBDByUUID(VBDRef) (*VBD, error)
+		GetVBDsFromVDI(VDIRef) ([]*VBD, error)
+		GetVBDsFromVM(VMRef) ([]*VBD, error)
 	}
 
 	// VMMethods are methods used to create/modify/get/delete a VM from a HOST
@@ -47,24 +44,22 @@ type (
 
 	// SRMethods are methods used to create/modify/get/delete an SR from a HOST
 	SRMethods interface {
-		GetSRByName(string) ([]*SR, error)
-		GetSRByUUID(string) (*SR, error)
+		GetSRByUUID(SRRef) (*SR, error)
 	}
 
 	// HostMethods are used to modify/add/remove/get a Host from Xen Orchestra
 	HostMethods interface {
-		GetHostByName(string) ([]*Host, error)
-		GetHostByTag(string) ([]*Host, error)
-		GetHostByUUID(string) (*Host, error)
+		GetHostByName(string) (*Host, error)
+		GetHostByUUID(HostRef) (*Host, error)
 	}
 
 	// Client is the main interface used to interact with xo client
 	Client interface {
 		VDIMethods
-		//VBDMethods
+		VBDMethods
 		VMMethods
-		//SRMethods
-		//HostMethods
+		SRMethods
+		HostMethods
 	}
 )
 
