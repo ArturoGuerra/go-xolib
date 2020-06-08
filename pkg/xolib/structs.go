@@ -6,10 +6,14 @@ type (
 
 	// MessageRequest is the message request format
 	MessageRequest struct {
+		Method string  `json:"method"`
+		Params *Params `json:"params,omitempty"`
+	}
+
+	messageRequest struct {
 		ID      string `json:"id"`
-		Method  string `json:"method"`
 		Jsonrpc string `json:"jsonrpc"`
-		Params  Params `json:"params"`
+		*MessageRequest
 	}
 
 	// MessageError represents an error message from xoa
@@ -19,7 +23,7 @@ type (
 	}
 
 	// MessageResult is the result of a websocket response if successful
-	MessageResult map[string]interface{}
+	MessageResult interface{}
 
 	// MessageResponse is the websocket message response
 	MessageResponse struct {

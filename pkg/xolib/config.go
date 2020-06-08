@@ -10,6 +10,10 @@ type Config struct {
 
 // LoadConfig loads the Config from env
 func LoadConfig() *Config {
-	// TODO: Placeholder
-	return nil
+
+	return &Config{
+		Host:     "10.50.1.182",
+		Username: "arturo",
+		Password: "Hydr0gen7892",
+	}
 }

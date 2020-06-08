@@ -3,37 +3,58 @@ package xolib
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
-	"github.com/pborman/uuid"
 )
 
-func rawCall(ws *websocket.Conn, req *MessageRequest) (*MessageResult, error) {
+func rawCall(ws *websocket.Conn, rawReq *MessageRequest) (*MessageResult, error) {
+	id := uuid.New()
+	req := &messageRequest{
+		ID:             id.String(),
+		Jsonrpc:        "2.0",
+		MessageRequest: rawReq,
+	}
+
 	raw, err := json.Marshal(req)
 	if err != nil {
 		return nil, err
+	}
+
+	fmt.Println(string(raw))
+
+	var data *MessageResponse
+	timeouterr := &MessageResponse{
+		ID: id.String(),
+		Error: &MessageError{
+			Message: "Timeout Error",
+			Code:    404,
+		},
 	}
 
 	if err := ws.WriteMessage(websocket.TextMessage, raw); err != nil {
 		return nil, err
 	}
 
-	ws.SetReadDeadline(time.Now().Add(1 * time.Second))
+	//ws.SetReadDeadline(time.Now().Add(5 * time.Second))
+	timeout := time.Now().Add(30 * time.Second)
 
-	_, message, err := ws.ReadMessage()
-	if err != nil {
-		return nil, err
+	for timeout.After(time.Now()) {
+		if _, message, err := ws.ReadMessage(); err == nil {
+			raw := MessageResponse{}
+			if err = json.Unmarshal(message, &raw); err == nil {
+				if raw.ID != "" && raw.ID == req.ID {
+					data = &raw
+					break
+				}
+			}
+		}
 	}
 
-	data := new(MessageResponse)
-
-	if err = json.Unmarshal(message, data); err != nil {
-		return nil, err
-	}
-
-	if data.ID != req.ID {
-		return nil, errors.New("Mismatched ID's")
+	if data == nil {
+		data = timeouterr
 	}
 
 	if data.Error != nil {
@@ -44,21 +65,22 @@ func rawCall(ws *websocket.Conn, req *MessageRequest) (*MessageResult, error) {
 }
 
 func (xo *xolib) getLogin() *MessageRequest {
-	id := uuid.NewUUID()
-
 	params := Params{}
 
+	var method string
+
 	if xo.Config.Token != "" {
+		method = "session.signInWithToken"
 		params["token"] = xo.Config.Token
 	} else {
-		params["username"] = xo.Config.Username
+		method = "session.signIn"
+		params["email"] = xo.Config.Username
 		params["password"] = xo.Config.Password
 	}
 
 	return &MessageRequest{
-		ID:      id.String(),
-		Jsonrpc: "2.0",
-		Params:  params,
+		Method: method,
+		Params: &params,
 	}
 }
 
