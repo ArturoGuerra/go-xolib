@@ -21,10 +21,7 @@ type (
 		// CreateVDI : Name string, Size int64 (bytes), sr string (SR ID)
 		CreateVDI(string, int64, SRRef) (*VDI, error)
 		// DeleteVDI : VDI ID IDRef
-		//DeleteVDI(VDIRef) error
-		// ForceDeleteVDI : VDI ID IDRef
-		//ForceDeleteVDI(VDIRef) error
-
+		DeleteVDI(VDIRef) error
 		//GetVDIByName(string) ([]*VDI, error)
 		GetVDIByUUID(VDIRef) (*VDI, error)
 	}
@@ -44,7 +41,7 @@ type (
 
 	// VMMethods are methods used to create/modify/get/delete a VM from a HOST
 	VMMethods interface {
-		GetVMByName(string) ([]*VM, error)
+		GetVMByName(string) (*VM, error)
 		GetVMByUUID(VMRef) (*VM, error)
 	}
 
@@ -65,7 +62,7 @@ type (
 	Client interface {
 		VDIMethods
 		//VBDMethods
-		//VMMethods
+		VMMethods
 		//SRMethods
 		//HostMethods
 	}

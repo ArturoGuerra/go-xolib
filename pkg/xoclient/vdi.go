@@ -2,6 +2,7 @@ package xoclient
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/arturoguerra/go-xolib/pkg/xolib"
 )
@@ -67,4 +68,24 @@ func (c *client) CreateVDI(name string, size int64, sr SRRef) (*VDI, error) {
 
 	vdi, err := c.GetVDIByUUID(ref)
 	return vdi, err
+}
+
+// DeleteVDI : deletes VDI
+func (c *client) DeleteVDI(ref VDIRef) error {
+	params := &xolib.Params{
+		"id": string(ref),
+	}
+
+	request := &xolib.MessageRequest{
+		Method: "vdi.delete",
+		Params: params,
+	}
+
+	resp, err := c.Call(request)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(resp)
+	return nil
 }
