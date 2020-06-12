@@ -105,7 +105,7 @@ func (c *xoClient) DeleteVDI(ref VDIRef) error {
 		Params: params,
 	}
 
-	resp, err := c.Call(request)
+	_, err := c.Call(request)
 	if err != nil {
 		return err
 	}
