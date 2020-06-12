@@ -60,6 +60,8 @@ type (
 		VMMethods
 		SRMethods
 		HostMethods
+		xolib.Xolib
+		GetAll() (*xolib.MessageResult, error)
 	}
 )
 
