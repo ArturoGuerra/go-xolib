@@ -2,7 +2,6 @@ package xoclient
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/arturoguerra/go-xolib/pkg/xolib"
 )
@@ -111,6 +110,5 @@ func (c *xoClient) DeleteVDI(ref VDIRef) error {
 		return err
 	}
 
-	fmt.Println(resp)
 	return nil
 }
