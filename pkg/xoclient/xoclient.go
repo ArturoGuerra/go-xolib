@@ -12,7 +12,7 @@ import (
 )
 
 type (
-	client struct {
+	xoClient struct {
 		xolib.Xolib
 	}
 
@@ -54,7 +54,7 @@ type (
 	}
 
 	// Client is the main interface used to interact with xo client
-	Client interface {
+	XOClient interface {
 		VDIMethods
 		VBDMethods
 		VMMethods
@@ -66,8 +66,8 @@ type (
 )
 
 // NewClient returns a client
-func NewClient(lib xolib.Xolib) Client {
-	return &client{
+func NewClient(lib xolib.Xolib) XOClient {
+	return &xoClient{
 		Xolib: lib,
 	}
 }

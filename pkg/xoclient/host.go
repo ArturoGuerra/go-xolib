@@ -3,7 +3,7 @@ package xoclient
 import "errors"
 
 // GetHostByName
-func (c *client) GetHostByName(name string) (*Host, error) {
+func (c *xoClient) GetHostByName(name string) (*Host, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
@@ -32,7 +32,7 @@ func (c *client) GetHostByName(name string) (*Host, error) {
 }
 
 // GetHostByUUID
-func (c *client) GetHostByUUID(ref HostRef) (*Host, error) {
+func (c *xoClient) GetHostByUUID(ref HostRef) (*Host, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err

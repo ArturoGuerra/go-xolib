@@ -8,7 +8,7 @@ import (
 )
 
 // GetVDIByUUID : ref VDIRef (string)
-func (c *client) GetVDIByUUID(ref VDIRef) (*VDI, error) {
+func (c *xoClient) GetVDIByUUID(ref VDIRef) (*VDI, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
@@ -38,7 +38,7 @@ func (c *client) GetVDIByUUID(ref VDIRef) (*VDI, error) {
 }
 
 // GetVDIByName : name string (pv name)
-func (c *client) GetVDIByName(name string) (*VDI, error) {
+func (c *xoClient) GetVDIByName(name string) (*VDI, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
@@ -68,7 +68,7 @@ func (c *client) GetVDIByName(name string) (*VDI, error) {
 }
 
 // CreateVDI : Name string, Size int64, SR SRRef
-func (c *client) CreateVDI(name string, size int64, sr SRRef) (*VDIRef, error) {
+func (c *xoClient) CreateVDI(name string, size int64, sr SRRef) (*VDIRef, error) {
 	params := xolib.Params{
 		"name": name,
 		"size": size,
@@ -96,7 +96,7 @@ func (c *client) CreateVDI(name string, size int64, sr SRRef) (*VDIRef, error) {
 }
 
 // DeleteVDI : deletes VDI
-func (c *client) DeleteVDI(ref VDIRef) error {
+func (c *xoClient) DeleteVDI(ref VDIRef) error {
 	params := &xolib.Params{
 		"id": string(ref),
 	}

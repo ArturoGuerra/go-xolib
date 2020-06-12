@@ -6,7 +6,7 @@ import (
 )
 
 // Filter : filters
-func (c *client) Filter(resp interface{}, filters map[string]string, object interface{}) bool {
+func (c *xoClient) Filter(resp interface{}, filters map[string]string, object interface{}) bool {
 	switch val := resp.(type) {
 	case map[string]interface{}:
 		for k, v := range filters {
@@ -23,7 +23,7 @@ func (c *client) Filter(resp interface{}, filters map[string]string, object inte
 }
 
 // getAllObjects
-func (c *client) getAllObjects() (*xolib.MessageResult, error) {
+func (c *xoClient) getAllObjects() (*xolib.MessageResult, error) {
 	request := &xolib.MessageRequest{
 		Method: "xo.getAllObjects",
 	}
@@ -34,6 +34,6 @@ func (c *client) getAllObjects() (*xolib.MessageResult, error) {
 }
 
 // GetAll is just like getAllObjects
-func (c *client) GetAll() (*xolib.MessageResult, error) {
+func (c *xoClient) GetAll() (*xolib.MessageResult, error) {
 	return c.getAllObjects()
 }

@@ -7,7 +7,7 @@ import (
 )
 
 // AttachVBD
-func (c *client) AttachVBD(vdiref VDIRef, vmref VMRef) error {
+func (c *xoClient) AttachVBD(vdiref VDIRef, vmref VMRef) error {
 	params := &xolib.Params{
 		"mode": "RW",
 		"vdi":  string(vdiref),
@@ -32,7 +32,7 @@ func (c *client) AttachVBD(vdiref VDIRef, vmref VMRef) error {
 }
 
 // GetVBDByUUID
-func (c *client) GetVBDByUUID(ref VBDRef) (*VBD, error) {
+func (c *xoClient) GetVBDByUUID(ref VBDRef) (*VBD, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
@@ -61,7 +61,7 @@ func (c *client) GetVBDByUUID(ref VBDRef) (*VBD, error) {
 }
 
 // GetVBDByName
-func (c *client) GetVBDByName(name string) (*VBD, error) {
+func (c *xoClient) GetVBDByName(name string) (*VBD, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
@@ -90,7 +90,7 @@ func (c *client) GetVBDByName(name string) (*VBD, error) {
 }
 
 // DisconnectVBD
-func (c *client) DisconnectVBD(ref VBDRef) error {
+func (c *xoClient) DisconnectVBD(ref VBDRef) error {
 	params := &xolib.Params{
 		"id": string(ref),
 	}
@@ -115,7 +115,7 @@ func (c *client) DisconnectVBD(ref VBDRef) error {
 }
 
 // DeleteVBD
-func (c *client) DeleteVBD(ref VBDRef) error {
+func (c *xoClient) DeleteVBD(ref VBDRef) error {
 	params := &xolib.Params{
 		"id": string(ref),
 	}
@@ -140,7 +140,7 @@ func (c *client) DeleteVBD(ref VBDRef) error {
 }
 
 // ConnectVBD
-func (c *client) ConnectVBD(ref VBDRef) error {
+func (c *xoClient) ConnectVBD(ref VBDRef) error {
 	params := &xolib.Params{
 		"id": string(ref),
 	}
@@ -165,7 +165,7 @@ func (c *client) ConnectVBD(ref VBDRef) error {
 }
 
 // GetVBDsFromVDI
-func (c *client) GetVBDsFromVDI(ref VDIRef) ([]*VBD, error) {
+func (c *xoClient) GetVBDsFromVDI(ref VDIRef) ([]*VBD, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
@@ -193,7 +193,7 @@ func (c *client) GetVBDsFromVDI(ref VDIRef) ([]*VBD, error) {
 }
 
 // GetVBDsFromVM
-func (c *client) GetVBDsFromVM(ref VMRef) ([]*VBD, error) {
+func (c *xoClient) GetVBDsFromVM(ref VMRef) ([]*VBD, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err

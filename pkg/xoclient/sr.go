@@ -3,7 +3,7 @@ package xoclient
 import "errors"
 
 // GetSRByUUID
-func (c *client) GetSRByUUID(ref SRRef) (*SR, error) {
+func (c *xoClient) GetSRByUUID(ref SRRef) (*SR, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
