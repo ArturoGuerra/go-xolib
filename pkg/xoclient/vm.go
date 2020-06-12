@@ -5,7 +5,7 @@ import (
 )
 
 // GetVMByName
-func (c *client) GetVMByName(name string) (*VM, error) {
+func (c *xoClient) GetVMByName(name string) (*VM, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
@@ -35,7 +35,7 @@ func (c *client) GetVMByName(name string) (*VM, error) {
 }
 
 // GetVMByUUID
-func (c *client) GetVMByUUID(ref VMRef) (*VM, error) {
+func (c *xoClient) GetVMByUUID(ref VMRef) (*VM, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
