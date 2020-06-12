@@ -15,10 +15,10 @@ type (
 	// SR is a Storage Repository used to store VDIs
 	SR struct {
 		Type      string   `json:"type" mapstructure:"type"`
-		ID        string   `json:"id" mapstructure:"id"`
+		ID        SRRef    `json:"id" mapstructure:"id"`
 		Pool      string   `json:"$pool" mapstructure:"$pool"`
 		PoolID    string   `json:"$poolId" mapstructure:"$poolId"`
-		UUID      string   `json:"uuid" mapstructure:"uuid"`
+		UUID      SRRef    `json:"uuid" mapstructure:"uuid"`
 		SRType    string   `json:"SR_type"`
 		VDIs      []VDIRef `json:"VDIs"`
 		NameLabel string   `json:"name_label"`

@@ -66,14 +66,9 @@ func (xo *xolib) getLogin() *MessageRequest {
 
 	var method string
 
-	if xo.Config.Token != "" {
-		method = "session.signInWithToken"
-		params["token"] = xo.Config.Token
-	} else {
-		method = "session.signIn"
-		params["email"] = xo.Config.Username
-		params["password"] = xo.Config.Password
-	}
+	method = "session.signIn"
+	params["email"] = xo.Config.Username
+	params["password"] = xo.Config.Password
 
 	return &MessageRequest{
 		Method: method,
@@ -83,7 +78,7 @@ func (xo *xolib) getLogin() *MessageRequest {
 
 // Call is used to execute calls to the xolib api
 func (xo *xolib) Call(req *MessageRequest) (*MessageResult, error) {
-	ws, _, err := websocket.DefaultDialer.Dial("ws://"+xo.Config.Host+"/api/", nil)
+	ws, err := xo.getWS()
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +96,7 @@ func (xo *xolib) Call(req *MessageRequest) (*MessageResult, error) {
 
 // Init check if login works
 func (xo *xolib) Init() error {
-	ws, _, err := websocket.DefaultDialer.Dial("ws://"+xo.Config.Host+"/api/", nil)
+	ws, err := xo.getWS()
 	if err != nil {
 		return err
 	}
