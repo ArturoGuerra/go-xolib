@@ -185,11 +185,7 @@ func (c *xoClient) GetVBDsFromVDI(ref VDIRef) ([]*VBD, error) {
 		}
 	}
 
-	if len(vbds) > 0 {
-		return vbds, nil
-	}
-
-	return nil, errors.New("No VBD was found")
+	return vbds, nil
 }
 
 // GetVBDsFromVM
@@ -213,9 +209,5 @@ func (c *xoClient) GetVBDsFromVM(ref VMRef) ([]*VBD, error) {
 		}
 	}
 
-	if len(vbds) > 0 {
-		return vbds, nil
-	}
-
-	return nil, errors.New("No VBD was found")
+	return vbds, nil
 }

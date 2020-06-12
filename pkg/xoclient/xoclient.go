@@ -53,7 +53,7 @@ type (
 		GetHostByUUID(HostRef) (*Host, error)
 	}
 
-	// Client is the main interface used to interact with xo client
+	// XOClient is the main interface used to interact with xo client
 	XOClient interface {
 		VDIMethods
 		VBDMethods
