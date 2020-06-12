@@ -32,3 +32,8 @@ func (c *client) getAllObjects() (*xolib.MessageResult, error) {
 
 	return resp, err
 }
+
+// GetAll is just like getAllObjects
+func (c *client) GetAll() (*xolib.MessageResult, error) {
+	return c.getAllObjects()
+}
