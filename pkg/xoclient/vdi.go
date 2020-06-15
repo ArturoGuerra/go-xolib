@@ -37,7 +37,7 @@ func (c *xoClient) GetVDIByUUID(ref VDIRef) (*VDI, error) {
 }
 
 // GetVDIByName : name string (pv name)
-func (c *xoClient) GetVDIByName(name string) (*VDI, error) {
+func (c *xoClient) GetVDIByName(name string) ([]*VDI, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
@@ -59,11 +59,7 @@ func (c *xoClient) GetVDIByName(name string) (*VDI, error) {
 		}
 	}
 
-	if len(vdis) == 1 {
-		return vdis[0], nil
-	}
-
-	return nil, errors.New("VDI Not found")
+	return vdis, nil
 }
 
 // CreateVDI : Name string, Size int64, SR SRRef

@@ -20,7 +20,7 @@ type (
 	VDIMethods interface {
 		CreateVDI(string, int64, SRRef) (*VDIRef, error)
 		DeleteVDI(VDIRef) error
-		GetVDIByName(string) (*VDI, error)
+		GetVDIByName(string) ([]*VDI, error)
 		GetVDIByUUID(VDIRef) (*VDI, error)
 	}
 
@@ -30,7 +30,7 @@ type (
 		ConnectVBD(VBDRef) error
 		DisconnectVBD(VBDRef) error
 		DeleteVBD(VBDRef) error
-		GetVBDByName(string) (*VBD, error)
+		GetVBDByName(string) ([]*VBD, error)
 		GetVBDByUUID(VBDRef) (*VBD, error)
 		GetVBDsFromVDI(VDIRef) ([]*VBD, error)
 		GetVBDsFromVM(VMRef) ([]*VBD, error)
@@ -38,7 +38,7 @@ type (
 
 	// VMMethods are methods used to create/modify/get/delete a VM from a HOST
 	VMMethods interface {
-		GetVMByName(string) (*VM, error)
+		GetVMByName(string) ([]*VM, error)
 		GetVMByUUID(VMRef) (*VM, error)
 	}
 

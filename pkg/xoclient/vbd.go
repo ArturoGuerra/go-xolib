@@ -61,7 +61,7 @@ func (c *xoClient) GetVBDByUUID(ref VBDRef) (*VBD, error) {
 }
 
 // GetVBDByName
-func (c *xoClient) GetVBDByName(name string) (*VBD, error) {
+func (c *xoClient) GetVBDByName(name string) ([]*VBD, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
@@ -82,11 +82,7 @@ func (c *xoClient) GetVBDByName(name string) (*VBD, error) {
 		}
 	}
 
-	if len(vbds) == 1 {
-		return vbds[0], nil
-	}
-
-	return nil, errors.New("VBD Not found")
+    return vbds, nil
 }
 
 // DisconnectVBD

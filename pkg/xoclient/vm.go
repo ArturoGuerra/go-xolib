@@ -5,7 +5,7 @@ import (
 )
 
 // GetVMByName
-func (c *xoClient) GetVMByName(name string) (*VM, error) {
+func (c *xoClient) GetVMByName(name string) ([]*VM, error) {
 	resp, err := c.getAllObjects()
 	if err != nil {
 		return nil, err
@@ -27,11 +27,7 @@ func (c *xoClient) GetVMByName(name string) (*VM, error) {
 		}
 	}
 
-	if len(vms) == 1 {
-		return vms[0], nil
-	}
-
-	return nil, errors.New("No VM found with this name")
+    return vms, nil
 }
 
 // GetVMByUUID
